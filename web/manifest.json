@@ -1,6 +1,6 @@
 {
-    "name": "tododifficult",
-    "short_name": "tododifficult",
+    "name": "new_todo",
+    "short_name": "new_todo",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

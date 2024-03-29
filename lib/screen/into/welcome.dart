@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:tododifficult/utils/constant.dart';
+
+import '../../utils/constant.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({super.key});

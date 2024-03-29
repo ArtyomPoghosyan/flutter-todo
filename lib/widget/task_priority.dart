@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
 
+import 'category.dart';
+
 class TaskPriorityDialog extends StatefulWidget {
+  final Function(dynamic) handlePriority;
+  dynamic handleCategoryName;
+
+  TaskPriorityDialog(
+      {required this.handlePriority, required this.handleCategoryName});
+
   @override
   _TaskPriorityDialogState createState() => _TaskPriorityDialogState();
 }
@@ -76,8 +84,10 @@ class _TaskPriorityDialogState extends State<TaskPriorityDialog> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  // Save logic here
-                  print(selectedCardIndex);
+                  if (selectedCardIndex >= 0) {
+                    widget.handlePriority(selectedCardIndex);
+                    ShowCategory(context, widget.handleCategoryName);
+                  }
                 },
                 child: Text("Save"),
               )
@@ -89,11 +99,14 @@ class _TaskPriorityDialogState extends State<TaskPriorityDialog> {
   }
 }
 
-void showTaskPriority(BuildContext context) {
+void showTaskPriority(BuildContext context,
+    void Function(dynamic) handlePriority, handleCategoryName) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
-      return TaskPriorityDialog();
+      return TaskPriorityDialog(
+          handlePriority: handlePriority,
+          handleCategoryName: handleCategoryName);
     },
   );
 }

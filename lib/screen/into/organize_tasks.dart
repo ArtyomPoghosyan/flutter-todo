@@ -4,8 +4,8 @@ import '../../widget/back_next_btn_container.dart';
 import '../../widget/skip.dart';
 import '../../widget/three_lines.dart';
 
-class Orgonaize extends StatelessWidget {
-  const Orgonaize({super.key});
+class OrganizeTasks extends StatelessWidget {
+  const OrganizeTasks({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class Orgonaize extends StatelessWidget {
                           ThreeLines(),
                           SizedBox(height: 50),
                           Text(
-                            "Orgonaize your tasks",
+                            "Organize your tasks",
                             style: Theme.of(context).textTheme.headline1,
                           ),
                           SizedBox(height: 42),
@@ -48,8 +48,7 @@ class Orgonaize extends StatelessWidget {
                           SizedBox(
                             height: 107,
                           ),
-                          BackNextBtn(back: "/create", page: "/welcome"),
-                          // BottomLine()
+                          BackNextBtn(back: "/create", next: "/welcome"),
                         ],
                       ),
                     ),

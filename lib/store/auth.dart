@@ -1,31 +1,33 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:local_auth/local_auth.dart';
 import 'package:mobx/mobx.dart';
 
 part 'auth.g.dart';
 
-class FingerPrintAuth = _FingerPrintAuth with _$FingerPrintAuth;
+class FirebaseAuthStore extends TFirebaseAuthStore {
+  static final FirebaseAuthStore _singleton = FirebaseAuthStore._internal();
+  factory FirebaseAuthStore() {
+    return _singleton;
+  }
+  FirebaseAuthStore._internal();
+}
 
-abstract class _FingerPrintAuth with Store {
-  final _auth = LocalAuthentication();
+class TFirebaseAuthStore = _FirebaseAuthStore with _$FirebaseAuthStore;
+
+abstract class _FirebaseAuthStore with Store {
+  FirebaseAuth authFirebase = FirebaseAuth.instance;
 
   @observable
-  bool isAuthenticatedBoll = false;
+  User? user;
 
   @action
-  Future<void> authenticate() async {
-    print(_auth);
-    bool authenticated = false;
-    try {
-      isAuthenticatedBoll = true;
-      authenticated = await _auth.authenticate(
-          localizedReason: 'Scan your fingerprint to authenticate',
-          options: const AuthenticationOptions(
-            useErrorDialogs: true,
-            stickyAuth: true,
-          ));
-    } catch (e) {
-      print(e);
-    }
+  void setUser(User? event) {
+    user = event;
+  }
+
+  @action
+  setSignout(event) {
+    user = null;
+    print('${user}hmoooooooo');
   }
 }

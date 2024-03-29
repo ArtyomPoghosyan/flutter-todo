@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class BackNextBtn extends StatefulWidget {
-  final page;
+  final next;
   final back;
-  const BackNextBtn({super.key, required this.page, required this.back});
+  const BackNextBtn({super.key, required this.next, required this.back});
 
   @override
   State<BackNextBtn> createState() => _BackNextBtn();
@@ -28,7 +28,7 @@ class _BackNextBtn extends State<BackNextBtn> {
             height: 48,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, widget.page);
+                Navigator.pushNamed(context, widget.next);
               },
               child: Text("NEXT"),
               style: ButtonStyle(

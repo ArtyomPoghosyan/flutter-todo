@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
-
 import '../../widget/back_next_btn_container.dart';
 import '../../widget/skip.dart';
 import '../../widget/three_lines.dart';
 
-class Create extends StatefulWidget {
-  const Create({super.key});
+class CreateRoutine extends StatelessWidget {
+  const CreateRoutine({super.key});
 
-  @override
-  State<Create> createState() => _Create();
-}
-
-class _Create extends State<Create> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,7 +48,7 @@ class _Create extends State<Create> {
                         SizedBox(
                           height: 107,
                         ),
-                        BackNextBtn(back: "/manager", page: "/orgonaize")
+                        BackNextBtn(back: "/manager", next: "/organizetasks")
                       ],
                     ),
                   ),

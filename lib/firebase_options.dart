@@ -50,20 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyB7mFujRWm7st7v3EX_Ct8toPFPZ3k0FQg',
-    appId: '1:282897543752:android:9cd1b10db4e517bec4de7d',
-    messagingSenderId: '282897543752',
-    projectId: 'tododifficult-88e4a',
-    storageBucket: 'tododifficult-88e4a.appspot.com',
+    apiKey: 'AIzaSyCJSNn5Ls_vD4oEu6t_2UvlPRk68edRqSc',
+    appId: '1:727711161673:android:4d64e2c62f59d0a28a0e98',
+    messagingSenderId: '727711161673',
+    projectId: 'newtodo-78e36',
+    storageBucket: 'newtodo-78e36.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAKQAobB36QHAI8N8t4TxJUoWW9USn41o8',
-    appId: '1:282897543752:ios:33ceaabded84d0b1c4de7d',
-    messagingSenderId: '282897543752',
-    projectId: 'tododifficult-88e4a',
-    storageBucket: 'tododifficult-88e4a.appspot.com',
-    iosClientId: '282897543752-l4op5tdeo6452e6haikh4upnrntpf6t6.apps.googleusercontent.com',
-    iosBundleId: 'com.example.tododifficult',
+    apiKey: 'AIzaSyDGF0S-8KD5vRrpMA2bOwSu06yI6azmxY0',
+    appId: '1:727711161673:ios:df74507e13fa77ce8a0e98',
+    messagingSenderId: '727711161673',
+    projectId: 'newtodo-78e36',
+    storageBucket: 'newtodo-78e36.appspot.com',
+    iosClientId: '727711161673-6q9vl6ul6r0k171q13807qg29gqo4p5i.apps.googleusercontent.com',
+    iosBundleId: 'com.example.newTodo',
   );
 }

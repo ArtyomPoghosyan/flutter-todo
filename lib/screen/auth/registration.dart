@@ -1,22 +1,49 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:tododifficult/utils/constant.dart';
-import 'package:tododifficult/utils/validators.dart';
+import 'package:new_todo/screen/auth/firebase_auth_implementation/firebase_auth_services.dart';
+// import 'package:tododifficult/utils/constant.dart';
+// import 'package:tododifficult/utils/validators.dart';
 
-class RegistrationPage extends StatefulWidget {
-  const RegistrationPage({super.key});
+import '../../utils/constant.dart';
+import '../../utils/validators.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
+
+class Registration extends StatefulWidget {
+  const Registration({super.key});
 
   @override
-  State<RegistrationPage> createState() => _RegistrationPage();
+  State<Registration> createState() => _Registration();
 }
 
-class _RegistrationPage extends State<RegistrationPage> {
+class _Registration extends State<Registration> {
+  final FirebaseAuthService auth = FirebaseAuthService();
+  final formField = GlobalKey<FormState>();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+
+  @override
+  void dispose() {
+    passwordController.dispose();
+    usernameController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  void signUp() async {
+    String username = usernameController.text;
+    String password = passwordController.text;
+    User? user = await auth.signUpWithEmailAndPassword(username, password);
+    print(user);
+    if (user != null) {
+      Navigator.pushNamed(context, "/mainscreen");
+    } else {
+      print("noooooooooo");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final formField = GlobalKey<FormState>();
-    TextEditingController passwordController = TextEditingController();
-    TextEditingController usernameController = TextEditingController();
-    TextEditingController confirmPasswordController = TextEditingController();
-
     return Scaffold(
       appBar: AppBar(),
       body: SafeArea(
@@ -119,10 +146,7 @@ class _RegistrationPage extends State<RegistrationPage> {
                       child: ElevatedButton(
                         onPressed: () {
                           if (formField.currentState!.validate()) {
-                            print("ok");
-                          }
-                          if (Form.of(context).validate()) {
-                            print("Match");
+                            signUp();
                           }
                         },
                         child: Text(

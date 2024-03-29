@@ -1,40 +1,40 @@
 {
   "project_info": {
-    "project_number": "282897543752",
-    "project_id": "tododifficult-88e4a",
-    "storage_bucket": "tododifficult-88e4a.appspot.com"
+    "project_number": "727711161673",
+    "project_id": "newtodo-78e36",
+    "storage_bucket": "newtodo-78e36.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:282897543752:android:9cd1b10db4e517bec4de7d",
+        "mobilesdk_app_id": "1:727711161673:android:4d64e2c62f59d0a28a0e98",
         "android_client_info": {
-          "package_name": "com.example.tododifficult"
+          "package_name": "com.example.new_todo"
         }
       },
       "oauth_client": [
         {
-          "client_id": "282897543752-aa9hijc6bb3ecndf2a1qsknkvrecglqb.apps.googleusercontent.com",
+          "client_id": "727711161673-0j31afdup54590r4s1u2f2t132eacsaq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB7mFujRWm7st7v3EX_Ct8toPFPZ3k0FQg"
+          "current_key": "AIzaSyCJSNn5Ls_vD4oEu6t_2UvlPRk68edRqSc"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "282897543752-aa9hijc6bb3ecndf2a1qsknkvrecglqb.apps.googleusercontent.com",
+              "client_id": "727711161673-0j31afdup54590r4s1u2f2t132eacsaq.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "282897543752-l4op5tdeo6452e6haikh4upnrntpf6t6.apps.googleusercontent.com",
+              "client_id": "727711161673-6q9vl6ul6r0k171q13807qg29gqo4p5i.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.tododifficult"
+                "bundle_id": "com.example.newTodo"
               }
             }
           ]

@@ -1,34 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:tododifficult/widget/show_dialog.dart';
-import '../../store/common.dart';
-import '../../store/firebase.dart';
+import '../../utils/constant.dart';
 import '../../widget/bottom_nav_bar.dart';
-import '../../widget/drawer.dart';
+import '../../widget/show_dialog.dart';
 
-class Index extends StatefulWidget {
-  Index({super.key});
+class MainScreen extends StatefulWidget {
+  MainScreen({super.key});
 
   @override
-  State<Index> createState() => _Index();
+  State<MainScreen> createState() => _MainScreen();
 }
 
-class _Index extends State<Index> {
+class _MainScreen extends State<MainScreen> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   PageController pageController = PageController();
-  final FirebaseStore firebaseStore = FirebaseStore();
-  final commonStore = CommonStore();
-  var currentIndex = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    commonStore.isShowAppBar = false;
-    firebaseStore.authFirebase.authStateChanges().listen((event) {
-      setState(() {
-        firebaseStore.setUSer(event);
-      });
-    });
-  }
+  int currentIndex = 0;
 
   void onPageChanged(int index) {
     setState(() {
@@ -39,8 +24,8 @@ class _Index extends State<Index> {
   void onTapItem(int index) {
     setState(() {
       currentIndex = index;
+      pageController.jumpToPage(index);
     });
-    pageController.jumpToPage(index);
   }
 
   @override
@@ -51,7 +36,7 @@ class _Index extends State<Index> {
         child: PageView(
           controller: pageController,
           onPageChanged: onPageChanged,
-          children: commonStore.screensWidget,
+          children: screensWidget,
         ),
       ),
       bottomNavigationBar: BottomNavBar(
@@ -64,12 +49,12 @@ class _Index extends State<Index> {
         child: FloatingActionButton(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-          onPressed: () => ShowDialog(context, "Add Task"),
+          onPressed: () => ShowDialog(context, "Add Task", ""),
           child: Icon(Icons.add),
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      drawer: DrawerWidget(),
+      // drawer: DrawerWidget(),
     );
   }
 }

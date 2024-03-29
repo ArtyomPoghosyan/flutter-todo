@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:date_picker_plus/date_picker_plus.dart';
+import 'task_priority.dart';
 
-void showCalendar(BuildContext context) async {
+void showCalendar(
+    BuildContext context,
+    void Function(DateTime) handleDateTimeSelected,
+    handlePriority,
+    handleCategoryName) async {
   DateTime today = DateTime.now();
   showDatePickerDialog(
     context: context,
@@ -23,6 +28,10 @@ void showCalendar(BuildContext context) async {
             selectedTime.minute,
           );
           print(selectedDateTime);
+          if (selectedDateTime != null) {
+            handleDateTimeSelected(selectedDateTime);
+            showTaskPriority(context, handlePriority, handleCategoryName);
+          }
         }
       });
     }

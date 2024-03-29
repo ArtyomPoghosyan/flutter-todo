@@ -1,34 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../store/firebase.dart';
-import 'package:provider/provider.dart';
+// import '../store/firebase.dart';
 
 class ChangeAccountName extends StatefulWidget {
-  TextEditingController titleController = TextEditingController(text: "barev");
-  ChangeAccountName({super.key, required this.titleController});
+  final Function(String) onChange;
+  final TextEditingController changedNameController;
+  ChangeAccountName(
+      {super.key, required this.changedNameController, required this.onChange});
 
   @override
   State<ChangeAccountName> createState() => _ChangeAccountName();
 }
 
 class _ChangeAccountName extends State<ChangeAccountName> {
-  final FirebaseStore firebaseStore = FirebaseStore();
+  // final FirebaseAuthStore firebaseStore = FirebaseAuthStore();
+  TextEditingController changedNameController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    firebaseStore.authFirebase.authStateChanges().listen((event) {
-      setState(() {
-        firebaseStore.setUSer(event);
-      });
-    });
+    changedNameController;
+    // TextEditingController(text: firebaseStore.user?.email ?? "");
   }
 
   @override
   Widget build(BuildContext context) {
-    print(' barev${firebaseStore.user?.email}');
-
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
       child: Column(
@@ -42,7 +38,8 @@ class _ChangeAccountName extends State<ChangeAccountName> {
                   }
                   return null;
                 },
-                controller: widget.titleController,
+                controller: changedNameController,
+                onChanged: widget.onChange,
                 keyboardType: TextInputType.name,
                 decoration: const InputDecoration(
                     contentPadding:

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 
 import '../../widget/back_next_btn_container.dart';
-import '../../widget/bottom_line.dart';
 import '../../widget/skip.dart';
 import '../../widget/three_lines.dart';
 
-class ManagerPage extends StatelessWidget {
-  const ManagerPage({super.key});
+class ManageTasks extends StatelessWidget {
+  const ManageTasks({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,13 +48,11 @@ class ManagerPage extends StatelessWidget {
                           SizedBox(
                             height: 107,
                           ),
-                          BackNextBtn(back: "/", page: "/create"),
-                          // BottomLine()
+                          BackNextBtn(back: "/", next: "/createroutine"),
                         ],
                       ),
                     ),
                   ),
-                  // BottomLine()
                 ],
               ),
             ),
@@ -63,5 +60,6 @@ class ManagerPage extends StatelessWidget {
         ),
       ),
     );
+    ;
   }
 }

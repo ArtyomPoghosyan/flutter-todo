@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import '../store/firebase.dart';
+import '../store/auth.dart';
 
 class IndexBar extends StatefulWidget {
   IndexBar({
@@ -13,17 +13,7 @@ class IndexBar extends StatefulWidget {
 }
 
 class _IndexBar extends State<IndexBar> {
-  final firebaseStore = FirebaseStore();
-
-  @override
-  void initState() {
-    super.initState();
-    firebaseStore.authFirebase.authStateChanges().listen((event) {
-      setState(() {
-        firebaseStore.user = event;
-      });
-    });
-  }
+  final FirebaseAuthStore firebaseStore = FirebaseAuthStore();
 
   void handleOpenDrawer() {
     Scaffold.of(context).openDrawer();
@@ -44,11 +34,13 @@ class _IndexBar extends State<IndexBar> {
             Text("Index"),
             Observer(
               builder: (builder) => ClipOval(
-                child: Image.network(
-                  firebaseStore.user?.photoURL ?? Icon(Icons.person).toString(),
-                  width: 42,
-                  height: 42,
-                ),
+                child: firebaseStore.user?.photoURL != null
+                    ? Image.network(
+                        firebaseStore.user!.photoURL!,
+                        width: 42,
+                        height: 42,
+                      )
+                    : Icon(Icons.person),
               ),
             ),
           ],

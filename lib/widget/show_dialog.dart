@@ -1,18 +1,70 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:mobx/mobx.dart';
-import 'package:tododifficult/components/change_account_pass.dart';
-
 import '../components/add_task.dart';
 import '../components/change_account_name.dart';
+import '../components/change_account_pass.dart';
 import 'calendar.dart';
+import 'category.dart';
 import 'task_priority.dart';
 
-void ShowDialog(BuildContext context, String dialogTitle) {
+class TaskData {
+  dynamic date;
+  int? priority;
+  String? title;
+  String? description;
+  bool? check;
+  String? category;
+
+  TaskData(
+      {this.date,
+      this.priority,
+      this.description,
+      this.title,
+      this.check,
+      this.category});
+}
+
+void ShowDialog(BuildContext context, String dialogTitle, dynamic id) {
   final formField = GlobalKey<FormState>();
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController oldPasswordController = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();
+  TextEditingController changedNameController = TextEditingController();
+  TaskData taskData = TaskData();
+
+  void handleDateTimeSelected(DateTime selectedDateTime) {
+    taskData.date = selectedDateTime.toString();
+  }
+
+  void handlePriority(dynamic priority) {
+    if (priority != null) {
+      taskData.priority = priority;
+    }
+  }
+
+  void handleCategoryName(dynamic category) {
+    taskData.category = category['name'];
+    CollectionReference collRef = FirebaseFirestore.instance.collection("user");
+    print('${id}idddddd in the creation');
+    if (id != null) {
+      print('${id}mtav');
+      // collRef.add({
+      //   "date": taskData.date,
+      //   "description": taskData.description,
+      //   "title": taskData.title,
+      //   "priority": taskData.priority,
+      //   "check": false,
+      //   "category": taskData.category
+      // });
+    } else {
+      print("updateeeed");
+      print('${id}elaaaaaaaav');
+    }
+    Navigator.pushNamed(context, "/mainscreen");
+  }
+
+  print('${id}iddddddddddddddddddddddddddddddd');
 
   showDialog(
       context: context,
@@ -27,34 +79,31 @@ void ShowDialog(BuildContext context, String dialogTitle) {
             ),
             content: SingleChildScrollView(
                 child: Container(
-              child: Column(
-                children: [
-                  Form(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      key: formField,
-                      child:
-                          // Column(
-                          // children: [
-                          dialogTitle == "Change account name"
-                              ? ChangeAccountName(
-                                  titleController: titleController,
-                                )
-                              : dialogTitle == "Change account Password"
-                                  ? ChangeAccountPassword(
-                                      oldPasswordController:
-                                          oldPasswordController,
-                                      newPasswordController:
-                                          newPasswordController)
-                                  : addTasksComponent(
-                                      titleController: titleController,
-                                      descriptionController:
-                                          descriptionController,
-                                    )
-                      // ],
-                      // ),
-                      ),
-                ],
-              ),
+              child: Column(children: [
+                Form(
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                    key: formField,
+                    child: dialogTitle == "Change account name"
+                        ? ChangeAccountName(
+                            changedNameController: changedNameController,
+                            onChange: (value) {
+                              changedNameController.text = value;
+                            })
+                        : dialogTitle == "Change account Password"
+                            ? ChangeAccountPassword(
+                                oldPasswordController: oldPasswordController,
+                                newPasswordController: newPasswordController)
+                            : AddTasksComponent(
+                                id: id,
+                                titleController: titleController,
+                                onChangeTitle: (value) {
+                                  titleController.text = value;
+                                },
+                                descriptionController: descriptionController,
+                                onChangeDesc: (value) {
+                                  descriptionController.text = value;
+                                })),
+              ]),
             )),
             actions: [
               InkWell(
@@ -71,17 +120,30 @@ void ShowDialog(BuildContext context, String dialogTitle) {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       InkWell(
-                                        onTap: () => showCalendar(context),
-                                        child: Icon(Icons.timer, size: 24),
+                                        onTap: () => showCalendar(
+                                            context,
+                                            handleDateTimeSelected,
+                                            handlePriority,
+                                            handleCategoryName),
+                                        child:
+                                            const Icon(Icons.timer, size: 24),
                                       ),
                                       InkWell(
-                                        onTap: () {},
-                                        child: Icon(Icons.pin_drop_rounded,
+                                        onTap: () {
+                                          ShowCategory(
+                                              context, handleCategoryName);
+                                        },
+                                        child: const Icon(
+                                            Icons.pin_drop_rounded,
                                             size: 24),
                                       ),
                                       InkWell(
-                                        onTap: () =>
-                                            {showTaskPriority(context)},
+                                        onTap: () => {
+                                          showTaskPriority(
+                                              context,
+                                              handlePriority,
+                                              handleCategoryName)
+                                        },
                                         child: const Icon(
                                           Icons.flag,
                                           size: 24,
@@ -91,10 +153,15 @@ void ShowDialog(BuildContext context, String dialogTitle) {
                                   )),
                               InkWell(
                                 onTap: () {
-                                  print(
-                                      '${titleController.text} ${descriptionController.text}');
                                   if (formField.currentState!.validate()) {
-                                    showCalendar(context);
+                                    taskData.title = titleController.text;
+                                    taskData.description =
+                                        descriptionController.text;
+                                    showCalendar(
+                                        context,
+                                        handleDateTimeSelected,
+                                        handlePriority,
+                                        handleCategoryName);
                                   }
                                 },
                                 child: const Icon(
@@ -110,7 +177,19 @@ void ShowDialog(BuildContext context, String dialogTitle) {
                             ElevatedButton(
                                 onPressed: () {}, child: Text("Cancel")),
                             ElevatedButton(
-                                onPressed: () {}, child: Text("Edit")),
+                                onPressed: () {
+                                  if (formField.currentState!.validate()) {
+                                    taskData.title = titleController.text;
+                                    taskData.description =
+                                        descriptionController.text;
+                                    showCalendar(
+                                        context,
+                                        handleDateTimeSelected,
+                                        handlePriority,
+                                        handleCategoryName);
+                                  }
+                                },
+                                child: Text("Edit")),
                           ],
                         ))
             ]);

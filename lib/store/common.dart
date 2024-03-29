@@ -1,19 +1,38 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mobx/mobx.dart';
-import 'package:tododifficult/screens/home/calendar_screen.dart';
-import 'package:tododifficult/screens/home/home_screen.dart';
-import 'package:tododifficult/store/firebase.dart';
 
 part 'common.g.dart';
 
-class CommonStore = _CommonStore with _$CommonStore;
+class CommonStore extends TCommonStore {
+  static final CommonStore _singleton = CommonStore._internal();
+  factory CommonStore() {
+    return _singleton;
+  }
+  CommonStore._internal();
+}
+
+class TCommonStore = _CommonStore with _$CommonStore;
 
 abstract class _CommonStore with Store {
-  bool isShowAppBar = true;
+  @observable
+  late Map<String, dynamic> task = {};
 
-  final List<Widget> screensWidget = [
-    HomeScreen(),
-    CalendarScreen(),
-  ];
+  @observable
+  late String taskId;
+
+  @action
+  void setTaskId(val) {
+    if (val != null) {
+      taskId = val;
+      getData();
+    }
+  }
+
+  Future<void> getData() async {
+    final snapshot =
+        await FirebaseFirestore.instance.collection("user").doc(taskId).get();
+    if (snapshot.exists) {
+      task = snapshot.data() as Map<String, dynamic>;
+    }
+  }
 }

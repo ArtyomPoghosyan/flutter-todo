@@ -1,17 +1,18 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:tododifficult/screens/into/manager_page.dart';
-import 'package:tododifficult/widget/bottom_line.dart';
 
-class InitialPage extends StatelessWidget {
-  const InitialPage({super.key});
+import '../../widget/bottom_line.dart';
+import 'manage_tasks.dart';
+
+class About extends StatelessWidget {
+  const About({super.key});
 
   @override
   Widget build(BuildContext context) {
     Timer(Duration(seconds: 3), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (builder) => ManagerPage()));
+          context, MaterialPageRoute(builder: (builder) => ManageTasks()));
     });
     return Scaffold(
       body: SafeArea(

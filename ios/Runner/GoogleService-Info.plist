@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyAKQAobB36QHAI8N8t4TxJUoWW9USn41o8</string>
+	<string>AIzaSyDGF0S-8KD5vRrpMA2bOwSu06yI6azmxY0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>282897543752</string>
+	<string>727711161673</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.tododifficult</string>
+	<string>com.example.newTodo</string>
 	<key>PROJECT_ID</key>
-	<string>tododifficult-88e4a</string>
+	<string>newtodo-78e36</string>
 	<key>STORAGE_BUCKET</key>
-	<string>tododifficult-88e4a.appspot.com</string>
+	<string>newtodo-78e36.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:282897543752:ios:33ceaabded84d0b1c4de7d</string>
+	<string>1:727711161673:ios:df74507e13fa77ce8a0e98</string>
 </dict>
 </plist>
